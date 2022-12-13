@@ -1,0 +1,489 @@
+CREATE SCHEMA IF NOT EXISTS `make_computer` DEFAULT CHARACTER SET utf8 ;
+USE `make_computer` ;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`memoria_ram` (
+  `idmemoria_ram` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `tamanho` VARCHAR(45) NOT NULL,
+  `velocidade` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idmemoria_ram`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`hd` (
+  `idhd` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `velocidade` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idhd`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`fonte` (
+  `idfonte` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `watts` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idfonte`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`gpu` (
+  `idgpu` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `vram` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idgpu`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`placa_mae` (
+  `idplaca_mae` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `tipo` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idplaca_mae`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`gabinete` (
+  `idgabinete` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `tamanho` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idgabinete`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`water_cooler` (
+  `idwater_cooler` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `tamanho` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idwater_cooler`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`processador` (
+  `idprocessador` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idprocessador`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`ssd` (
+  `idssd` INT NOT NULL AUTO_INCREMENT,
+  `marca` VARCHAR(45) NOT NULL,
+  `modelo` VARCHAR(45) NOT NULL,
+  `velocidade` VARCHAR(45) NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idssd`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`computador` (
+  `idcomputador` INT NOT NULL AUTO_INCREMENT,
+  `nome_pc` VARCHAR(45) NOT NULL,
+  `idmemoria_ram` INT NOT NULL,
+  `idhd` INT NOT NULL,
+  `idfonte` INT NOT NULL,
+  `idplaca_mae` INT NOT NULL,
+  `idgabinete` INT NOT NULL,
+  `idwater_cooler` INT NOT NULL,
+  `idgpu` INT NOT NULL,
+  `idprocessador` INT NOT NULL,
+  `idssd` INT NOT NULL,
+  `pontos` INT NOT NULL,
+  `preco` FLOAT NOT NULL,
+  PRIMARY KEY (`idcomputador`),
+  INDEX `fk_computador_memoria_ram_idx` (`idmemoria_ram` ASC),
+  INDEX `fk_computador_hd1_idx` (`idhd` ASC) ,
+  INDEX `fk_computador_fonte1_idx` (`idfonte` ASC) ,
+  INDEX `fk_computador_placa_mae1_idx` (`idplaca_mae` ASC) ,
+  INDEX `fk_computador_gabinete1_idx` (`idgabinete` ASC) ,
+  INDEX `fk_computador_water_cooler1_idx` (`idwater_cooler` ASC) ,
+  INDEX `fk_computador_gpu1_idx` (`idgpu` ASC) ,
+  INDEX `fk_computador_processador1_idx` (`idprocessador` ASC) ,
+  INDEX `fk_computador_ssd1_idx` (`idssd` ASC) ,
+  CONSTRAINT `fk_computador_memoria_ram`
+    FOREIGN KEY (`idmemoria_ram`)
+    REFERENCES `make_computer`.`memoria_ram` (`idmemoria_ram`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_computador_hd1`
+    FOREIGN KEY (`idhd`)
+    REFERENCES `make_computer`.`hd` (`idhd`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_computador_fonte1`
+    FOREIGN KEY (`idfonte`)
+    REFERENCES `make_computer`.`fonte` (`idfonte`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_computador_placa_mae1`
+    FOREIGN KEY (`idplaca_mae`)
+    REFERENCES `make_computer`.`placa_mae` (`idplaca_mae`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_computador_gabinete1`
+    FOREIGN KEY (`idgabinete`)
+    REFERENCES `make_computer`.`gabinete` (`idgabinete`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_computador_water_cooler1`
+    FOREIGN KEY (`idwater_cooler`)
+    REFERENCES `make_computer`.`water_cooler` (`idwater_cooler`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_computador_gpu1`
+    FOREIGN KEY (`idgpu`)
+    REFERENCES `make_computer`.`gpu` (`idgpu`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_computador_processador1`
+    FOREIGN KEY (`idprocessador`)
+    REFERENCES `make_computer`.`processador` (`idprocessador`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_computador_ssd1`
+    FOREIGN KEY (`idssd`)
+    REFERENCES `make_computer`.`ssd` (`idssd`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`questionario` (
+  `idpergunta` INT NOT NULL AUTO_INCREMENT,
+  `pergunta` VARCHAR(500) NOT NULL,
+  `ponto` INT NOT NULL,
+  `dependencia` INT NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idpergunta`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `make_computer`.`resposta` (
+  `idresposta` VARCHAR(45) NOT NULL,
+  `nome_usuario` VARCHAR(45) NOT NULL,
+  `soma` INT NOT NULL,
+  `media` INT NOT NULL,
+  `idpergunta` INT NOT NULL,
+  PRIMARY KEY (`idresposta`),
+  INDEX `fk_resposta_questionario1_idx` (`idpergunta` ASC) ,
+  CONSTRAINT `fk_resposta_questionario1`
+    FOREIGN KEY (`idpergunta`)
+    REFERENCES `make_computer`.`questionario` (`idpergunta`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+use make_computer;
+ 
+ insert into memoria_ram (marca, modelo, tamanho, velocidade, preco)
+values ('vazio', 'vazio', 'vazio', 'vazio', 0),
+	('Zadak', 		'Twist', 		'8GB (1x8)',  '2666MHz-DDR4', 180.00),
+	('Zadak', 		'Twist', 		'16GB (2x8)', '2666MHz-DDR4', 360.00),
+	('Geil ', 	'Evo Potenza', 		'8GB (1x8)',  '2666MHz-DDR4', 200.00),
+	('Geil ', 	'Evo Potenza',  	'16GB (2x8)', '2666MHz-DDR4', 400.00),
+	('Geil', 		'Orion', 		'8GB (1x8)',  '3000MHz-DDR4', 200.00),
+	('Geil', 		'Orion', 		'16GB(2x8)',  '3000MHz-DDR4', 400.00),
+	('Giel', 	'Evo Potenza', 	    '8GB (1x8)',  '3000MHz-DDR4', 200.00),
+	('Zadak', 		'Twist', 	    '16GB (1x8)', '3000MHz-DDR4', 320.00),
+	('Giel', 		'SuperFrame',   '8GB (1x8)',  '3200MHz-DDR4', 200.00),
+	('Corsair', 	'Vengeance', 	'8GB (1x8)',  '3200MHz-DDR4', 260.00),
+	('Corsair', 	'Vengeance', 	'16GB (2x8)', '3200MHz-DDR4', 530.00),
+	('Crucial', 	'Ballistix', 	'8GB (1x8)',  '3200MHz-DDR4', 220.00),
+	('Kingston', 	'Fury', 	    '8GB (1x8)',  '3200MHz-DDR4', 200.00),
+	('Kingston', 	'Fury', 	    '8GB (1x8)',  '3200MHz-DDR4', 200.00),
+	('XPG', 	  'Spectrix D50', 	'8GB (1x8)',  '3200MHz-DDR4', 210.00),
+	('Kingston', 	'Fury', 	    '8GB (1x8)',  '3200MHz-DDR4', 200.00),
+	('Kingston', 	'Fury', 		'16GB (2x8)', '3200MHz-DDR4', 500.00),
+	('Corsair', 'Vengeance', 		'16gb (2x8)', '3600MHz-DDR4', 800.00),
+	('XPG', 	'Spectrix D50', 	'8GB (1x8)',  '3600MHz-DDR4', 230.00)
+;
+
+insert into hd (marca, modelo, velocidade, preco)
+values ('vazio', 'vazio', 'vazio', 0),
+('‎Seagate', 'ST1000DM010', '7200RPM', 273.50),
+('‎‎Western Digital', '‎SN350', '3200RPM', 569.50),
+('‎‎‎SEBKO', '‎ST4000DM004‎', '5400RPM', 569.50),
+('Western Digital', 'Sata III', '7200RPM', 290.00),
+('Seagate Barracuda', 'Sata III', '7200RPM', 250.00),
+('Western Digital', 'Sata III', '7200RPM', 290.00),
+('Western Digital', 'Sata III ', '5400RPM', 520.00),
+('Seagate', 'Sata III ', '7200RPM', 280.00),
+('Hikvision', 'Sata III', '4500RPM', 300.00),
+('Toshiba', 'Sata III', '7200RPM', 440.00),
+('TOSHIBA ', 'Sata III', '7200RPM', 470.00),
+('Seagate', 'Sata III', '5900RPM', 900.00),
+('Western Digital', 'Sata III', '7200RPM', 310.00);
+
+insert into fonte (marca, modelo, watts, preco)
+values ('vazio', 'vazio', 'vazio', 0),
+('Aerocool Kcas', '80 Plus White', '400W', 199.90),
+('Gamdias', 'Kratos E1', '500W', 300.00),
+('Gamemax', '80 Plus Bronze', '600W', 340.00),
+('Gamemax', '90 Plus Bronze', '400W', 170.00),
+('Fortrek', 'ATX PWS-2003','200W', 60.00),
+('Gamdias', 'Kratos E1', '500W', 300.00),
+('Gamdias', 'Kratos E1', '500W', 300.00),
+('Aerocool Kcas', '80 Plus White', '600W', 150.00),
+('Aerocool Kcas', '80 Plus White', '500W', 230.00),
+('Aerocool Mecha', '80 Plus White', '400W', 250.00),
+('Aerocool Kcas', '80 Plus White', '500W', 200.00),
+('Gamemax', '80 Plus Bronze', '600W', 350.00),
+('Gamdias', 'Kratos E1', '500W', 200.00),
+('OnePower', 'MP500W3-I', '500W', 160.00),
+('Redragon ', 'GC-PS001 ', '500W', 280.00),
+('Thermaltake ', 'PS-SPD-0500NPCWBZ-W', '500W', 350.00),
+('Gamdias', 'GD-Z500ZZZ', '500W', 200.00),
+('Gamemax', 'GM600', '600W', 360.00),
+('Gamemax', 'GM600', '500W', 200.00),
+('Redragon ', 'GC-PS001', '600W', 280.00),
+('Gamdias', 'M1-650W', '650W', 360.00),
+('XPG', 'Pylon', '650W', 500.00),
+('XPG', 'BKCBR', '750W', 660.00),
+('XPG', 'Core Reactor', '750W', 649.00),
+('XPG', 'GC-PS002', '660W', 470.00),
+('Silverstone', 'HELA 2050', '2050W', 2200.00),
+('SilverStone', 'SST-ET500', '500W', 354.00),
+('SILVERSTONE ', 'SST-ET750-B', '750W', 840.00),
+('SILVERSTONE ', 'SST-ST70F-ES230', '750W', 350.00),
+('SILVERSTONE ', 'SST-ET650-G', '650W', 820.00),
+('SILVERSTONE ', 'HELA 2050 PLATINUM', '2050W', 2300.00),
+('Asus ', 'TUF GAMING', '750W', 790.00),
+('Asus ', ' TUF-GAMING-650B', '650W', 690.00),
+('Asus ', 'TUF-GAMING-550B', '550W', 602.00),
+('Asus ', 'TUF-GAMING-450B', '450W', 560.00),
+('TGT', 'Tomahawk', '500W', 160.00),
+('Pichau', 'Bronze 80 Plus', '500W', 290.00),
+('Redragon', '80 Plus', '400W', 210.00);
+
+insert into placa_mae (marca, modelo,tipo, preco)
+values ('vazio', 'vazio', 'vazio', 0),
+	('Colorful', 'H510M-K M.2 V20', 'M-ATX', 460.00),
+	('Biostar', 'H410MH VER 6.0', 'M-ATX', 450.00),
+	('Gigabyte', 'H410M H', 'M-ATX', 510.00),
+	('Gigabyte', 'H410M H V3', 'M-ATX', 570.00),
+	('ASUS', '‎TUF GAMING B550M-PLUS','M-ATX', 1200.00),
+	('Biostar',		 'B450MH', 		 'M-ATX', 400.00),
+	('Gigabyte',	 'A320M S2H', 	 'M-ATX', 470.00),
+	('Gigabyte', 	 'B550M', 		 'M-ATX', 900.00),
+	('Gigabyte', 	'GA-A320M-H',	 'M-ATX', 450.00),
+	('Gigabyte',   'GA-A320M-S2H', 	 'M-ATX', 470.00),
+	('Asus',      '90MB1510-C1BAY0', 'M-ATX', 530.00),
+	('Colorful', 'H410M-K M.2 V20',	 'M-ATX', 440.00),
+	('ASRock',   '90-MXBGT0-A0BAYZ', 'M-ATX', 450.00),
+	('Biostar', 'H510MH/E 2.0 WIFI', 'M-ATX', 530.00),
+	('Asus', 	 'B550-F GAMING',      'ATX', 1900.00),
+	('Asus',  'TUF GAMING X570-PLUS',  'ATX', 1700.00),
+	('Asus', 	'B550 GAMING X V2',    'ATX', 1500.00),
+	('Asus', 	 'B550M-A WIFI II',    'ATX', 1200.00),
+	('Asus', 	'B450M GAMING II',	 'M-ATX', 1300.00),
+	('ASRock', 'B550 STEEL LEGEND',    'ATX', 1800.00),
+	('MSI',        'A320M-A PRO',      'ATX', 490.00),
+	('Colorful', 'CVN B550M GAMING', 'M-ATX', 1400.00),
+	('MSI',    'MPG X570 Gaming Plus', 'ATX', 1200.00),
+	('Mancer', 		  'H510M', 		 'M-ATX', 560.00),
+	('Gigabyte',    'A520M S2H',	 'M-ATX', 510.00),
+	('Biostar', 	  'A320MH',      'M-ATX', 300.00),
+	('MSI',         'A520M-A PRO',   'M-ATX', 460.00),
+	('Mancer',       'H610M-DA', 	 'M-ATX', 600.00),
+    ('Gigabyte', 'B450M H', ' ATX', 460.00),
+('BIOSTAR', 'B45M2', 'M-ATX', 600.00),
+('ASRock', 'X570 Extreme4', ' ATX', 1911.00),
+('Asus', 'ROG CROSSHAIR VIII', 'ATX', 3600.00),
+('ASROCK ', 'B550M Pro4,', 'M-ATX', 1040.90),
+('ASRock ', 'A320M-HD R4.0', 'M-ATX', 460.00),
+('Galax', 'B450M', 'M-ATX', 730.00),
+('ASRock', 'B550 Taichi Razer', 'ATX', 2500.00),
+('ASROCK ', 'X670E STEEL LEGEND', 'ATX', 2800.00),
+('ASROCK ', ' X670E PRO RS', 'ATX', 2600.00),
+('Galax', 'B450M', 'M-ATX', 730.00)
+;    
+
+insert into gabinete (marca, tamanho, preco)
+values ('vazio', 'vazio', 0),
+('T-Dagger', 'Mid Tower', 230.00),
+('KWG', 'Mid Tower', 190.00),
+('PowerX', 'Mini Tower', 170.00),
+('T-Dagger', 'Mid Tower', 230.00),
+('T-Dagger', 'Mid Tower', 230.00),
+('T-Dagger', 'Mid Tower', 230.00),
+('Aerocool', 'Mid Tower', 245.00),
+('Aerocool Mecha', 'Mid Tower', 239.90),
+('Aerocool Mecha', 'Mid Tower', 239.90),
+('Aerocool', 'Mid Tower', 170.00),
+('SilverStone', 'Mid Tower', 420.00),
+('Lian Li', 'Mid Tower', 470.00),
+('Montech', 'Mid Tower', 420.00),
+('SilverStone', 'Mid Tower', 420.00),
+('DeepCool', 'Mid Tower', 610.00),
+('SilverStone', 'MID TOWER', 600.00),
+('ReDragon', 'Mid Tower', 630.00),
+('Lian Li', 'Mid Tower', 660.00),
+('NZXT', 'Mid Tower', 750.00),
+('KWG', 'Mid Tower', 260.00),
+('Aerocool', 'Mid Tower', 245.00),
+('T-Dagger', 'Mid Tower', 230.00),
+('Redragon', 'Mid Tower', 380.00),
+('Gamdias', 'Mid Tower', 320.00),
+('Redragon', 'Mid Tower', 320.00),
+('Cooler Master', 'Full Tower', 3600.00),
+('Cooler Master', 'Full Tower', 1700.00),
+('Cooler Master', 'Full Tower', 1800.00),
+('TGT', 'G200', 1900.00),
+('Lian Li', 'full tower', 1900.00),
+('Montech', 'Mid Tower', 280.00),
+('Montech ', 'Mid Tower', 300.00),
+('Montech ', 'Mid Tower', 440.00),
+('Montech ', 'full tower', 330.00),
+('Montech ', 'Mid Tower', 460.00),
+('Montech ', 'full tower', 470.00),
+('Montech', 'Mid Tower', 350.00),
+('Montech ', 'Full Tower', 650.00),
+('Montech ', 'Mid Tower', 460.00),
+('Montech ', 'full tower', 390.00),
+('Montech ', 'Mid Tower', 290.00),
+('Montech ', 'Mid Tower', 290.00),
+('TGT', 'Mini-Tower', 135.00),
+('TGT', 'Mid Tower', 115.00),
+('TGT', 'Mid Tower', 120.00),
+('Mancer', 'Mid Tower', 195.00),
+('Aigo', 'Mid Tower', 230.00),
+('Pichau', 'Mid Tower', 300.00),
+('THERMALTAKE', 'Mid Tower', 490.00),
+('THERMALTAKE', 'Mid Tower', 470.00),
+('THERMALTAKE', 'MINI TOWER', 420.00),
+('THERMALTAKE', 'Mid Tower', 770.00);
+
+insert into water_cooler (marca, modelo, tamanho, preco)
+values ('vazio', 'vazio', 'vazio', 0),
+	('‎TGT', 'TGT-SPL240-BL01', '240mm', 279.90),    
+	('Water Cooler PCYES', 'Sangue Frio 2', '240mm', 379.90),
+	('Gigabyte ', 'Aorus WATERFORCE X 360 AIO', '360mm', 1559.90),
+	('PCYES', 'NIX 2 ARGB', '360mm', 679.90),
+	('PCYES', 'NIX 2 ARGB', '120mm',  369.90),
+	('Cougar', 'Aqua 240', '120mm',   399.90),
+	('Cooler Master ', 'MLX-D24M-A20PC-R1', '120mm', 550.00),
+	('Cooler Master', 'MLX-D36M-A20PC-R1', '120mm', 760.00)
+;
+
+insert into gpu (marca, modelo, vram, preco)
+values ('vazio', 'vazio', 'vazio', 0),
+('NVIDIA Geforce', 'RTX 2060', '6gb-DDR6', 1500.00),
+('MSI', 'GTX 1660 Super', '6GB', 1400.00),
+('Gigabyte', ' RTX 3060', '12GB', 2200.00),
+('Inno3D', 'RTX 2060', '6GB', 1590.00),
+('SuperFrame', 'RX 550', '4GB', 565.00),
+('AsRock', 'RX 6400', '4GB', 800.00),
+('PALIT', 'GTX 1050', '4GB', 970.00),
+('Galax', 'GTX 1660 Ti', '6GB', 1500.00),
+('SuperFrame', 'GTX 1050 Ti', '4GB', 1100.00),
+('SuperFrame', 'RX 550', '4GB', 600.00),
+('Afox', 'GT 740', '4GB', 700.00),
+('SuperFrame', 'GTX 1650', '4GB', 1000.00),
+('Sapphire Pulse', 'RX 6500 XT', '4GB', 1000.00),
+('PowerColor', 'RX 6400', '4GB', 800.00),
+('Afox', 'GTX 750 Ti', '4GB', 800.00),
+('Mancer', 'GTX 1060', '3GB', 1050.00),
+('MSI', 'GTX 1650', '4GB', 1110.00),
+(' Gigabyte', 'GeForce RTX 3060 ', '12G', 2399.90);
+ 
+ 
+insert into processador (marca, modelo, preco)
+values ('vazio', 'vazio', 0),
+	('Intel', 'i5 10400F', 850.00),
+	('Intel', 'i3 10100F', 510.00),
+	('Intel', 'i5 10400', 929.00),
+	('Intel', 'i5 10600', 1100.00),
+	('Intel', 'i5 10400', 1079.90),
+	('Intel', 'i3 10100', 680.00),
+	('Intel', 'i5 12400', 1310.00),
+	('Intel', 'I5-12600K', 1899.99),
+	('Intel ', 'i5 11600K', 1580.00),
+	('AMD', 'Ryzen 7 7700 ', 2999.99),
+	('AMD', 'Ryzen 9 7900X ', 4199.99),
+	('AMD', 'Ryzen 9 5900X', 2699.00),
+	('AMD', 'Ryzen 5 3600X', 1900.00),
+	('AMD', 'Ryzen 3 3200G', 720.70),
+	('AMD', 'Ryzen 5 3600', 750.00),
+	('AMD', 'Ryzen 5 7600X', 1900.00),
+	('AMD', 'Ryzen 5 5600X', 1260.00),
+	('AMD', 'Ryzen 7 5800X3D', 2500.00),
+	('AMD', 'Ryzen 7 5700X', 1600.00),
+	('AMD', 'Ryzen 5 PRO 3350G', 1600.00),
+	('AMD', 'Ryzen 9 5950X', 3500.00),
+	('AMD', 'Ryzen 5 4600G', 880.00),
+	('AMD', 'Ryzen 5 5600X', 1100.00),
+	('AMD', 'Ryzen 5 4500', 870.00),
+	('AMD', 'Ryzen 3 3200G', 650.00),
+	('AMD', 'Ryzen 5 PRO 4650GE', 1110.00),
+	('AMD', 'Athlon PRO 200GE', 615.00),
+	('AMD', 'Ryzen 3 PRO 2100GE', 880.00),
+	('AMD', 'Ryzen 5 4600G', 759.00),
+	('AMD', 'Ryzen 5 4600G', 759.00),
+	('AMD', 'Athlon 3000G', 349.00),
+	('AMD', 'Ryzen 5 5600G', 1060.00),
+	('AMD', 'Ryzen 7 5700G', 1640.00)
+;
+
+
+insert into ssd (marca, modelo, velocidade, preco)
+values ('vazio', 'vazio', 'vazio', 0),
+('Gamer Ninja', 'Sata III', ' 500MBs', 135.00), 
+('Hikvision', 'Sata III', '550MBs', 130.00),
+('Kingston', 'SATA II', '3GBs', 273.70),
+('Hikvision', 'Sata II', '550MBs', 99.90),
+('Gamer Ninja Shuriken ', 'Sata III', '500MBs', 139.90),
+('Hikvision C100 ', 'Sata III', '560MBs', 89.90),
+('Gamer Ninja Shuriken ', 'Sata III', '500MBs', 139.90),
+('Hikvision C100 ', 'Sata III', '550MBs', 100.00),
+('Kingston', 'M.2 NVMe', '2100MBs', 200.00),
+('ingston', 'Sata III', '500MBs', 150.00),
+('Adata', 'Sata III', '450MBs', 230.00),
+('Kingston', 'M.2 NVMe', '1700MBs', 200.00),
+('Kingston', 'Sata III', '500MBs', 230.00),
+('Kingston', 'Sata III', '450MBs', 180.00),
+('TGT ', 'Sata III', '500MBs', 250.00),
+('Mancer ', 'Sata III', '500MBs', 230.00),
+('Mancer ', 'Sata III', '550MBs', 250.00),
+('Mancer ', 'Sata III', '490MBs', 230.00),
+('Team Group', 'Sata III', '530MBs', 240.00),
+('TGT ', 'Sata III', '500MBs', 90.00),
+('Team Group', 'Sata III', '500MBs', 210.00),
+('Corsair', 'M2', '3480MBs', 675.00),
+('Lexar', 'Sata III', '550MBs', 660.00),
+('Kingston ', 'A400', '350MBs', 145.00);
+
+
+
+
+insert into computador(nome_pc, idmemoria_ram, idhd, idfonte, idplaca_mae, idgabinete, idwater_cooler, idgpu, idprocessador, idssd, pontos, preco)
+values 
+('Basico Intel',2,6,2,2,45,1,6,3,1,30,2360),
+('Basico AMD',3,6,2,7,45,1,1,31,1,25,1755), 
+('Intermediario Intel',7,7,7,3,8,1,3,2,2,50,4070),
+('Intermediario AMD',3,5,4,30,9,1,3,25,2,50,4095); 
+
+
+
+
+
+
+
+
+
